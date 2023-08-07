@@ -1,0 +1,13 @@
+$width: 16rem
+$height: $width * 1.5
+
+$border-size: .3rem
+$border-radius: 5px
+
+$hand-gap: 1rem
+$deck-size: 5
+
+@mixin fan($count, $angle) 
+  @for $i from 1 through $count 
+    div:nth-child(#{$i}) 
+      transform: translate(-50%, -50%) rotate(-$angle / 2 + $angle / ($count + 1) * $i)

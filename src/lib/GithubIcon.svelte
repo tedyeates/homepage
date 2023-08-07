@@ -1,6 +1,12 @@
+<script lang="ts">
+	import size from "./constants/size";
+
+    export let color:string
+</script>
+
 <svg 
-    width="800px" 
-    height="800px" 
+    width="{size.iconSize}" 
+    height="{size.iconSize}" 
     viewBox="0 0 20 20" 
     version="1.1" 
     xmlns="http://www.w3.org/2000/svg" 
@@ -16,7 +22,7 @@
         <g 
             id="Dribbble-Light-Preview" 
             transform="translate(-140.000000, -7559.000000)" 
-            fill="#fff"
+            fill="{color}"
         >
             <g id="icons" transform="translate(56.000000, 160.000000)">
                 <path 
