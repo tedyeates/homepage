@@ -1,20 +1,26 @@
 <script lang="ts">
-    import type { CardType }from './types'
+    import type { CardType }from '../types'
     import Card from './Card.svelte'
 
     export let cards: CardType[]
 </script>
 
 <div class="deck">
-    {#each cards as card}
+    {#each cards as card, index}
         <div class="card">
-            <Card card={card} />
+            <Card 
+                card={card} 
+                shown={index === cards.length - 1} 
+                faceDown 
+                on:click 
+            />
         </div>
     {/each}
 </div>
 
 <style lang="sass">
-    @use '../styles/cards'
+    @use '../../styles/cards'
+
     .deck
         position: relative
         display: flex
@@ -29,7 +35,7 @@
         .card
             position: absolute
             box-shadow: 0 0 30px transparentize(black, 0.8)
-                
+            
 </style>
 
 

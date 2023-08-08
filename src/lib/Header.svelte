@@ -34,6 +34,7 @@
             on:mouseout={() => onIconHoverOut("github")}
             on:blur={() => onIconHoverOut("github")}
             href="https://github.com/tedyeates"
+            target="_blank"
             aria-label="Github Ted Yeates"
         >
             <GithubIcon color={iconColor.github}/>
@@ -44,6 +45,7 @@
             on:mouseout={() => onIconHoverOut("linkedin")}
             on:blur={() => onIconHoverOut("linkedin")}
             href="https://www.linkedin.com/in/ted-yeates-11b14814a/"
+            target="_blank"
             aria-label="Linkedin Ted Yeates"
         >
             <LinkedinIcon color={iconColor.linkedin}/>
@@ -73,15 +75,6 @@
             width: 2em
             height: 3em
             object-fit: contain
-
-        svg 
-            width: 2em
-            height: 3em
-            display: block
-
-        .github-mask
-            -webkit-mask-image: url(github.svg)
-            mask-image: url(github.svg)
 
         a:hover
             color: var(--highlight)

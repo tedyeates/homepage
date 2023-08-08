@@ -1,6 +1,29 @@
 <script>
-	import Deck from "$lib/deck/Deck.svelte";
-	import Hand from "$lib/deck/Hand.svelte";
+	import Deck from "$lib/deck/components/Deck.svelte"
+	import Hand from "$lib/deck/components/Hand.svelte"
+
+    import DeckUtil from "$lib/deck/util/deck"
+    import HandUtil from "$lib/deck/util/hand"
+
+    const deck = new DeckUtil()
+    const hand = new HandUtil()
+
+    deck.shuffle()
+    let cardsInDeck = deck.getDeck()
+    let cardsInHand = hand.getHand()
+
+    const reloadCards = () => {
+        cardsInDeck = deck.getDeck()
+        cardsInHand = hand.getHand()
+    }
+
+    const drawCard = () => {
+        const card = deck.drawCard()
+        if (!card) throw new Error("Deck is empty")
+
+        hand.addCard(card)
+        reloadCards()
+    }
 </script>
 
 <svelte:head>
@@ -11,21 +34,13 @@
 <article>
     <section>
         <Deck 
-            cards={[
-                {title: "test", description: "testing"},
-                {title: "test", description: "testing"},
-                {title: "test", description: "testing"},
-                {title: "test", description: "testing"}
-            ]}
+            on:click={drawCard}
+            cards={cardsInDeck}
         />
     </section>
     <section>
         <Hand 
-            cards={[
-                {title: "test", description: "testing"},
-                {title: "test", description: "testing"},
-                {title: "test", description: "testing"},
-            ]}
+            cards={cardsInHand}
         />
     </section>
 </article>
