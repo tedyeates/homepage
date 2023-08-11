@@ -1,24 +1,30 @@
 <script lang="ts">
-    import cardImage from '$lib/images/BearCardScaled.png'
+    import cardImage from '$lib/images/card/BearCardScaled.png'
 	import type { CardType } from '../types';
+	import Tags from './Tags.svelte';
 
-    export let faceDown:boolean|undefined
-    export let shown:boolean = true
+    export let faceDown:boolean = false
+    export let isInFront:boolean = true
     export let card:CardType
 
-    let ariaLabel = "Project Card Front"
+    export let hasExpanded:boolean = false
+    
+
+    export let ariaLabel = "Project Card Front"
     if (faceDown) ariaLabel = "Project Card Back"
 </script>
 
-<div class="outline">
+<div 
+    class="outline" 
+    class:card-expanded-size={hasExpanded}
+>
     <svelte:element 
-        this={shown ? "button" : "div"} 
-        class:shown
-        class:faceUp={!faceDown}
-        class:faceDown
+        this={isInFront ? "button" : "div"} 
+        class:in-front={isInFront}
+        class:face-down={faceDown}
         class="background" 
         aria-label={ariaLabel} 
-        role={shown ? "button" : ""} 
+        role={isInFront ? "button" : ""} 
         on:click
     >
     {#if faceDown}
@@ -27,50 +33,25 @@
             alt="Pixel art teddy bear sits behind a grassy overlay. A cherry blossom tree reaches over him against a sky blue backdrop" 
         />
     {:else}
-        <h1>{card.title}</h1>
-        <img src={card.image} alt={card.imageAlt} />
-        <p>{card.description}</p>
+        <section class="card-content">
+            <div class="card-content-header">
+                <div class="title">
+                    <h2>{card.title}</h2>
+                    {#if card.link}
+                        🔗<a target="_blank" href={card.link}>{card.linkText}</a>
+                    {/if}
+                </div>
+                <Tags technologies={card.technologyTags} />
+                <div class="image-background">
+                    <img src={card.image} alt={card.imageAlt} />
+                </div>
+            </div>
+            <p>{hasExpanded ? card.description : card.summary}</p>
+        </section>
     {/if}
     </svelte:element>
 </div>
 
 <style lang="sass">
-    @use '../../styles/colours'
     @use '../../styles/cards'
-
-    %card-size
-        width: cards.$width
-        height: cards.$height
-        border-radius: cards.$border-radius
-
-    .outline
-        border: cards.$border-size solid colours.$border
-        background-color: colours.$border
-        @extend %card-size
-
-    .background 
-        all: unset
-        width: cards.$width
-        height: cards.$height
-        border-radius: cards.$border-radius
-        cursor: pointer
-        transition: background-color 0.5s ease-out, color 0.5s ease-out
-
-        &.faceUp
-            background-color: colours.$images
-
-            &.shown:hover
-                background-color: colours.$highlight
-                color: colours.$border
-
-        &.faceDown
-            background-color: colours.$card-background
-
-            &.shown:hover
-                background-color: colours.$card-highlight
-
-        img
-            @extend %card-size
-
-        
 </style>

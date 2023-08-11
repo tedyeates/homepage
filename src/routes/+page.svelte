@@ -50,4 +50,8 @@
         display: flex
         align-items: center
         justify-content: center
+        height: 50%
+
+    article
+        height: 100%
 </style>

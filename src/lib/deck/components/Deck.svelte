@@ -1,6 +1,6 @@
 <script lang="ts">
     import type { CardType }from '../types'
-    import Card from './Card.svelte'
+	import Card from './Card.svelte'
 
     export let cards: CardType[]
 </script>
@@ -8,9 +8,9 @@
 <div class="deck">
     {#each cards as card, index}
         <div class="card">
-            <Card 
+            <Card
                 card={card} 
-                shown={index === cards.length - 1} 
+                isInFront={index === cards.length - 1} 
                 faceDown 
                 on:click 
             />
@@ -20,6 +20,7 @@
 
 <style lang="sass">
     @use '../../styles/cards'
+    @use '../../styles/colours'
 
     .deck
         position: relative

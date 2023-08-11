@@ -1,8 +1,126 @@
+@use './colours'
+@use "sass:math"
+
+@function card-height($width)
+    @return $width * 1.5
+
 $width: 16rem
-$height: $width * 1.5
+$height: card-height($width)
+
+$expanded-width: 40rem
+$expanded-height: card-height($expanded-width)
+
+$padding: .85rem
 
 $border-size: .3rem
 $border-radius: 5px
 
 $hand-gap: 1rem
 $deck-size: 5
+
+
+@mixin card-size($width, $height, $font-size)
+    height: $height
+    width: $width
+    font-size: $font-size
+
+    .background
+        height: $height
+        width: $width
+
+        img
+            height: $height
+            width: $width
+
+    .card-content
+        height: $height
+        width: $width - $padding * 2
+
+        h2
+            font-size: $font-size * 1.3
+
+        .card-content-header .title a
+            font-size: $font-size * 1.3
+            font-weight: 700
+
+            &:hover
+                color: colours.$card-text-highlight
+
+    .image-background
+        $image-back-size: $width - 1.6rem
+        width: $image-back-size
+        height: $image-back-size
+
+        img
+            $image-size: $width - 2rem
+            width: $image-size
+            height: $image-size
+
+
+.outline.card-expanded-size
+    @include card-size($expanded-width, $expanded-height, 1.5rem)
+
+
+.outline
+    border: $border-size solid colours.$border
+    background-color: colours.$border
+    border-radius: $border-radius
+    @include card-size($width, $height, 1rem)
+
+.background 
+    all: unset
+    display: block
+    transition: background-color 0.5s ease-out, color 0.5s ease-out
+    cursor: pointer
+    border-radius: $border-radius
+    background-color: colours.$images
+
+    &.in-front:hover
+        background-color: colours.$highlight
+        color: colours.$border
+
+    &.face-down
+        background-color: colours.$card-background
+
+        &.in-front:hover
+            background-color: colours.$card-highlight
+
+    img
+        border-radius: $border-radius
+
+
+.card-content
+    display: flex
+    flex-direction: column
+    padding: math.div($padding, 2) $padding
+
+    %details
+        background: colours.$detail
+        border-radius: $border-radius
+
+    .card-content-header
+        display: flex
+        flex-direction: column
+        justify-content: center
+
+        .title
+            padding: .5rem
+            text-align: center
+            color: colours.$text
+
+            @extend %details
+
+            a
+                color: colours.$text
+
+        h2
+            display: inline
+        
+    .image-background
+        display: flex
+        justify-content: center
+        align-items: center
+        @extend %details
+
+        img
+            border-radius: $border-radius
