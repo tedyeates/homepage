@@ -1,15 +1,14 @@
 <script lang="ts">
-	import size from "./constants/size";
-
     export let color:string
+    export let size:number
 </script>
 
 <svg 
     xmlns="http://www.w3.org/2000/svg" 
     xmlns:xlink="http://www.w3.org/1999/xlink" 
     fill="{color}" 
-    height="{size.iconSize}" 
-    width="{size.iconSize}" 
+    height="{size}rem" 
+    width="{size}rem" 
     version="1.1" 
     id="Layer_1" 
     viewBox="0 0 310 310" 

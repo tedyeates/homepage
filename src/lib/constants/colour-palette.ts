@@ -5,5 +5,6 @@ export default {
     highlight: "#bb9258",
     shading: "#8d6235",
     images: "#885a29",
-    detail: "#402e22"
+    detail: "#402e22",
+    cardTextHighlight: "#F6FAFF"
 }

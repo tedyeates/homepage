@@ -1,9 +1,12 @@
-import type { CardType } from '../types'
+import type { CardType, HandCardsType } from '../types'
+import { pages } from './projects'
 
 export default class {
-    private _hand: {
-        [key: string]: CardType
-    } = {}
+    private _hand: HandCardsType = {}
+
+    constructor() {
+        this._hand = pages
+    }
     
     addCard(card: CardType) {
         this._hand[card.title] = card

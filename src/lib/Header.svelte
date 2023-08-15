@@ -2,21 +2,8 @@
     import { page } from '$app/stores';
     import logo from '$lib/images/teddy_logo.png';
 	import GithubIcon from '$lib/GithubIcon.svelte';
-    import colourPalette from '$lib/constants/colour-palette';
 	import LinkedinIcon from '$lib/LinkedinIcon.svelte';
-
-    let iconColor = {
-        github: colourPalette.images,
-        linkedin: colourPalette.images
-    }
-
-    const onIconHover = (key:string) => {
-        iconColor = {...iconColor, [key]:colourPalette.highlight}
-    }
-
-    const onIconHoverOut = (key:string) => {
-        iconColor = {...iconColor, [key]:colourPalette.images}
-    }
+    import ContactIconLink from '$lib/ContactIconLink.svelte';
 </script>
 
 <header>
@@ -28,28 +15,22 @@
 
 
     <div class="corner">
-        <a 
-            on:mouseover={() => onIconHover("github")}
-            on:focus={() => onIconHover("github")}
-            on:mouseout={() => onIconHoverOut("github")}
-            on:blur={() => onIconHoverOut("github")}
-            href="https://github.com/tedyeates"
-            target="_blank"
-            aria-label="Github Ted Yeates"
+        <ContactIconLink 
+            size={2}
+            link="https://github.com/tedyeates" 
+            let:color
+            let:size
         >
-            <GithubIcon color={iconColor.github}/>
-        </a>
-        <a 
-            on:mouseover={() => onIconHover("linkedin")}
-            on:focus={() => onIconHover("linkedin")}
-            on:mouseout={() => onIconHoverOut("linkedin")}
-            on:blur={() => onIconHoverOut("linkedin")}
-            href="https://www.linkedin.com/in/ted-yeates-11b14814a/"
-            target="_blank"
-            aria-label="Linkedin Ted Yeates"
+            <GithubIcon {size} {color} />
+        </ContactIconLink>
+        <ContactIconLink 
+            size={2}
+            link="https://www.linkedin.com/in/ted-yeates-11b14814a/" 
+            let:color
+            let:size
         >
-            <LinkedinIcon color={iconColor.linkedin}/>
-        </a>
+            <LinkedinIcon {size} {color} />
+        </ContactIconLink>
     </div>
 </header>
 

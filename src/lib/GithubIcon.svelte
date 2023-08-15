@@ -1,12 +1,11 @@
 <script lang="ts">
-	import size from "./constants/size";
-
+    export let size:number
     export let color:string
 </script>
 
 <svg 
-    width="{size.iconSize}" 
-    height="{size.iconSize}" 
+    width="{size}rem" 
+    height="{size}rem" 
     viewBox="0 0 20 20" 
     version="1.1" 
     xmlns="http://www.w3.org/2000/svg" 

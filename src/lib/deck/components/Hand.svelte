@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { CardType, Point }from '../types'
+    import type { CardType }from '../types'
     import Card from './Card.svelte'
 
     export let cards: CardType[]
@@ -57,7 +57,7 @@
 </script>
 
 <div class="hand">
-    {#each cards as card, index}
+    {#each [...cards].reverse() as card, index}
         <button 
             on:mouseover={() => onFocus(index)}
             on:focus={() => onFocus(index)}
@@ -66,13 +66,13 @@
             class="card"
             style="--rotation:{`${getRotation(50,index)}deg`};}; top:{top}%;"
         >
-        {#if expandCardIndex > -1}
+        {#if expandCardIndex === index}
             <Card 
                 {card}
                 hasExpanded
                 on:click={(event) => showCard(index, event)}
             />
-        {:else}
+        {:else if expandCardIndex === -1}
             <Card
                 {card}
                 on:click={(event) => showCard(index, event)}
