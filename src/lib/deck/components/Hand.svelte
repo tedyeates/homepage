@@ -22,10 +22,10 @@
         } 
 
         if (index < cardHoverIndex) {
-            return rotation - proportionAngle * 2
+            return rotation - proportionAngle * 4
         }
 
-        return rotation + proportionAngle * 2
+        return rotation + proportionAngle * 4
     }
 
     const onFocus = (index: number) => {

@@ -1,5 +1,6 @@
 import type { CardType } from "../types";
 import spiceImage from "../../images/project/spice_addiction_upscale.png"
+import inventoryManagement from "../../images/project/inventory_management_system.png"
 import nodeGraph from "../../images/project/node_graph_crop.png"
 import teddyLogo from "../../images/project/teddy_logo_highlight.png"
 import bearPaw from "../../images/project/bear_paw_highlight.png"
@@ -44,7 +45,7 @@ export const projects:CardType[] =  [
         technologyTags: [
             "Docker", "AWS", "React", "Typescript", "Django", "Cypress"
         ],
-        image: spiceImage,
+        image: inventoryManagement,
         summary: "System for managing metal inventory for a Thai electronics company",
         description: `
             <i>Django</i> and <i>PostgreSQL</i> based inventory management 
@@ -84,9 +85,9 @@ export const pages:HandCardsType =  {
         image: bearPaw,
         summary: `Connect with me on LinkedIn or Github`,
         description: `
-            If you are recruiting for an awesome opportunity, 
+            If you are recruiting, 
             looking to collaborate on a project or just want to talk technology, 
-            you can contact me at the following links
+            you can contact me or view my current projects at the following links
             <hr>
         `,
         hasContactIcons: true
