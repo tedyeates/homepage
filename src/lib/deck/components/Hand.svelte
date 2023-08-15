@@ -43,7 +43,6 @@
             return
         }
 
-        console.log(expandCardIndex, index)
         if (expandCardIndex === index) {
             expandCardIndex = -1
             top = TOP_INITIAL
@@ -51,7 +50,7 @@
         }
 
         expandCardIndex = index
-        top = -15
+        top = -5
     }
 
 </script>

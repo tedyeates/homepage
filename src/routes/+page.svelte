@@ -27,7 +27,7 @@
 </script>
 
 <svelte:head>
-	<title>Teddy</title>
+	<title>Ted Yeates</title>
 	<meta name="description" content="Ted Yeates Project Portfolio" />
 </svelte:head>
 

@@ -63,7 +63,7 @@
                 <div class="contact-icons">
                     <ContactIconLink 
                         {invertColors}
-                        size={5}
+                        size={4}
                         link="https://github.com/tedyeates" 
                         label="LinkedIn"
                         hasExpanded
@@ -73,9 +73,10 @@
                         <LinkedinIcon {size} {color} />
                     </ContactIconLink>
                     <br>
+                    <br>
                     <ContactIconLink 
                         {invertColors}
-                        size={5}
+                        size={4}
                         link="https://github.com/tedyeates" 
                         label="GitHub"
                         hasExpanded
