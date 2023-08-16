@@ -14,3 +14,12 @@ export type CardType = {
 export type HandCardsType = {
     [key: string]: CardType
 }
+
+export type ExpandEventDataType = {
+    index: number
+    event: MouseEvent
+}
+
+export type ExpandEventType = {
+    expand: ExpandEventDataType
+}

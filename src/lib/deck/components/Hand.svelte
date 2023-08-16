@@ -1,14 +1,14 @@
 <script lang="ts">
-    import type { CardType }from '../types'
+	import { createEventDispatcher } from 'svelte';
+    import type { CardType, ExpandEventType }from '../types'
     import Card from './Card.svelte'
 
     export let cards: CardType[]
+    export let expandCardIndex: number
 
     let cardHoverIndex: number | null = null
-
-    let expandCardIndex = -1
+    
     const TOP_INITIAL = 50
-    let top = TOP_INITIAL
 
     $: getRotation = (angle: number, index: number) => {
         if (expandCardIndex === index) {
@@ -36,21 +36,21 @@
         cardHoverIndex = null
     }
 
-    const showCard = (index: number, event: MouseEvent) => {
-        const target = event.target as HTMLElement
-        if (target.tagName === "A") {
-            event.stopPropagation()
-            return
-        }
-
+    $: getTop = (index:number) => {
         if (expandCardIndex === index) {
-            expandCardIndex = -1
-            top = TOP_INITIAL
-            return;
+            return -5
         }
 
-        expandCardIndex = index
-        top = -5
+        return TOP_INITIAL
+    }
+
+    const dispatch = createEventDispatcher<ExpandEventType>()
+
+    const onClickCard = (index:number, event: MouseEvent) => {
+        dispatch('expand', {
+            index,
+            event
+        })
     }
 
 </script>
@@ -62,19 +62,20 @@
             on:focus={() => onFocus(index)}
             on:mouseout={() => onBlur()}
             on:blur={() => onBlur()} 
+            on:click|stopPropagation
             class="card"
-            style="--rotation:{`${getRotation(50,index)}deg`};}; top:{top}%;"
+            style="--rotation:{`${getRotation(50,index)}deg`};}; top:{getTop(index)}%;"
         >
         {#if expandCardIndex === index}
             <Card 
                 {card}
                 hasExpanded
-                on:click={(event) => showCard(index, event)}
+                on:click={(event) => onClickCard(index, event)}
             />
         {:else if expandCardIndex === -1}
             <Card
                 {card}
-                on:click={(event) => showCard(index, event)}
+                on:click={(event) => onClickCard(index, event)}
             />
         {/if}
         </button>
@@ -95,7 +96,7 @@
             position: absolute
             box-shadow: 0 0 30px transparentize(black, 0.8)
 
-            transition: transform .5s ease-out
+            transition: transform cards.$transition-speed ease-out
             transform: translate(-50%, -50%) rotate(var(--rotation))
             transform-origin: center 120%
             left: 50%

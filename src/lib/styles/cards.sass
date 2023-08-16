@@ -20,6 +20,8 @@ $border-radius: 5px
 $hand-gap: 1rem
 $deck-size: 5
 
+$transition-speed: .3s
+
 
 %card-link
     font-weight: 700
@@ -76,17 +78,17 @@ $deck-size: 5
     border-radius: $border-radius
     @include card-size($width, $height, $font-size)
 
-.background 
+.background
     all: unset
     display: block
-    transition: background-color 0.5s ease-out, color 0.5s ease-out
-    cursor: pointer
+    transition: background-color $transition-speed ease-out, color $transition-speed ease-out
     border-radius: $border-radius
     background-color: colours.$images
 
     &.in-front:hover
         background-color: colours.$highlight
         color: colours.$border
+        cursor: pointer
 
     &.face-down
         background-color: colours.$card-background

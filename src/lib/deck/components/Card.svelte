@@ -11,7 +11,7 @@
     export let card:CardType
 
     export let hasExpanded:boolean = false
-
+    
 
     export let ariaLabel = "Project Card Front"
     if (faceDown) ariaLabel = "Project Card Back"
@@ -25,7 +25,7 @@
 >
     <svelte:element
         this={isInFront ? "button" : "div"} 
-        class:in-front={isInFront}
+        class:in-front={isInFront && !hasExpanded}
         class:face-down={faceDown}
         class="background" 
         aria-label={ariaLabel} 
@@ -62,7 +62,7 @@
                 {#if hasExpanded}
                 <div class="contact-icons">
                     <ContactIconLink 
-                        {invertColors}
+                        invertColors
                         size={4}
                         link="https://github.com/tedyeates" 
                         label="LinkedIn"
@@ -75,7 +75,7 @@
                     <br>
                     <br>
                     <ContactIconLink 
-                        {invertColors}
+                        invertColors
                         size={4}
                         link="https://github.com/tedyeates" 
                         label="GitHub"
