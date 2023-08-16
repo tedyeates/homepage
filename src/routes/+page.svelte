@@ -52,7 +52,7 @@
 	<meta name="description" content="Ted Yeates Project Portfolio" />
 </svelte:head>
 
-<article>
+<article class:card-expanded={expandCardIndex > -1}>
     <section>
         <Deck 
             on:click={drawCard}
@@ -77,4 +77,7 @@
 
     article
         height: 100%
+
+    .card-expanded
+        cursor: pointer
 </style>
