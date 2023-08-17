@@ -53,9 +53,11 @@
                 {#if card.technologyTags}
                     <Tags technologies={card.technologyTags} {hasExpanded} />
                 {/if}
+                {#if card.image}
                 <div class="image-background">
                     <img src={card.image} alt={card.imageAlt} />
                 </div>
+                {/if}
             </div>
             <p>{@html hasExpanded ? card.description : card.summary}</p>
             {#if card.hasContactIcons}

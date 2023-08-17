@@ -30,7 +30,7 @@
 
         @for $i from 1 through cards.$deck-size
             :nth-child(#{$i}) 
-                top: $i * 0.277778rem
+                top: $i * 0.270rem
                 right: $i * 0.125rem
 
         .card
