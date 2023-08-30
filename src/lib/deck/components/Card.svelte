@@ -52,6 +52,8 @@
                 </div>
                 {#if card.technologyTags}
                     <Tags technologies={card.technologyTags} {hasExpanded} />
+                {:else}
+                    <div class="separator"></div>
                 {/if}
                 {#if card.image}
                 <div class="image-background">
@@ -129,4 +131,6 @@
         border-radius: cards.$border-radius * 2
         padding: .1rem .5rem
 
+    .separator
+        height: .7rem
 </style>

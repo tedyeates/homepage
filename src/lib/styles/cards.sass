@@ -30,7 +30,7 @@ $transition-speed: .3s
         color: colours.$card-text-highlight
 
 
-@mixin card-size($width, $height, $font-size)
+@mixin card-size($width, $height, $font-size, $padding)
     height: $height
     width: $width
     font-size: $font-size
@@ -55,13 +55,13 @@ $transition-speed: .3s
             @extend %card-link
 
     .image-background
-        $image-back-size: $width - 4.6rem
+        $image-back-size: $width - ($padding - .1rem) * 6
         width: $image-back-size
         height: $image-back-size
         margin: 0 auto
 
         img
-            $image-size: $width - 5rem
+            $image-size: $width - $padding * 6
             width: $image-size
             height: $image-size
 
@@ -69,14 +69,17 @@ $transition-speed: .3s
     @extend %card-link
 
 .outline.card-expanded-size
-    @include card-size($expanded-width, $expanded-height, $expanded-font-size)
+    .card-content
+        padding: $padding * 2.2 $padding * 2.8
+        gap: 2rem
+    @include card-size($expanded-width, $expanded-height, $expanded-font-size, $padding * 2.8)
 
 
 .outline
     border: $border-size solid colours.$border
     background-color: colours.$border
     border-radius: $border-radius
-    @include card-size($width, $height, $font-size)
+    @include card-size($width, $height, $font-size, $padding)
 
 .background
     all: unset
@@ -119,7 +122,6 @@ $transition-speed: .3s
             padding: .5rem
             text-align: center
             color: colours.$text
-            margin-bottom: .1rem
 
             @extend %details
 

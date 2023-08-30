@@ -2,7 +2,7 @@ export type CardType = {
     title: string
     link?: string
     linkText?: string
-    technologyTags?: string[] 
+    technologyTags?: TechnologyTagType[] 
     summary: string
     description: string
     image?: string
@@ -22,4 +22,14 @@ export type ExpandEventDataType = {
 
 export type ExpandEventType = {
     expand: ExpandEventDataType
+}
+
+export type TechnologyTagsType = {
+    [key: string]: TechnologyTagType
+}
+
+export type TechnologyTagType = {
+    name: string,
+    icon?: string,
+    iconAlt?: string
 }

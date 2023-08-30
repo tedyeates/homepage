@@ -1,4 +1,4 @@
-import type { CardType } from "../types";
+import type { CardType, TechnologyTagsType } from "../types";
 import spiceImage from "../../images/project/spice_addiction_upscale.png"
 import inventoryManagement from "../../images/project/inventory_management_system.png"
 import nodeGraph from "../../images/project/node_graph_crop.png"
@@ -7,12 +7,110 @@ import ghostGame from "../../images/project/ghost_game.png"
 
 import teddyLogo from "../../images/project/teddy_logo_highlight.png"
 import me from "../../images/project/me.jpg"
+import meClimbing from "../../images/project/me_climbing_action.jpeg"
+
+import gradle from "../../images/technology/gradle.svg"
+import java from "../../images/technology/java.svg"
+import d3 from "../../images/technology/d3.svg"
+import javascript from "../../images/technology/javascript.svg"
+import python from "../../images/technology/python.svg"
+import react from "../../images/technology/react.svg"
+import docker from "../../images/technology/docker.svg"
+import aws from "../../images/technology/aws.png"
+import dynamodb from "../../images/technology/dynamodb.svg"
+import postgres from "../../images/technology/postgresql.svg"
+import typescript from "../../images/technology/typescript.svg"
+import django from "../../images/technology/django.svg"
+import cypress from "../../images/technology/cypress.png"
+import unity from "../../images/technology/unity.svg"
+import csharp from "../../images/technology/csharp.svg"
+
+const technologies: TechnologyTagsType = {
+    gradle: {
+        name: "Gradle",
+        icon: gradle,
+        iconAlt: "Gradle Logo (Elephant)"
+    },
+    java: {
+        name: "Java",
+        icon: java,
+        iconAlt: "Java Logo (Coffee Cup)"
+    },
+    react: {
+        name: "React",
+        icon: react,
+        iconAlt: "React Logo (Light blue nucleus surrounded by 3 light blue rings forming a star shape"
+    },
+    d3: {
+        name: "D3",
+        icon: d3,
+        iconAlt: "D3 Logo (Orange Letters, D3)"
+    },
+    javascript: {
+        name: "JavaScript",
+        icon: javascript,
+        iconAlt: "JavaScript Logo (Black letters on yellow background, JS)"
+    },
+    python: {
+        name: "Python",
+        icon: python,
+        iconAlt: "Python Logo (Two pythons entangled, one blue and one yellow)"
+    },
+    docker: {
+        name: "Docker",
+        icon: docker,
+        iconAlt: "Docker Logo (Two pythons entangled, one blue and one yellow)"
+    },
+    aws: {
+        name: "AWS",
+        icon: aws,
+        iconAlt: "AWS Logo (AWS letters with orange smile underneath with arrow on the end)"
+    },
+    dynamodb: {
+        name: "DynamoDB",
+        icon: dynamodb,
+        iconAlt: "DynamoDB Logo (3D blue gradient decagonal box resembling a server)"
+    },
+    postgres: {
+        name: "PostgreSQL",
+        icon: postgres,
+        iconAlt: "PostgreSQL Logo (Blue Elephant head with white and black outline)"
+    },
+    typescript: {
+        name: "TypeScript",
+        icon: typescript,
+        iconAlt: "TypeScript Logo (White letters on blue background, TS)"
+    },
+    django: {
+        name: "Django",
+        icon: django,
+        iconAlt: "Django Logo (White letters on dark green background, dj)"
+    },
+    cypress: {
+        name: "Cypress",
+        icon: cypress,
+        iconAlt: "Cypress Logo (Black letters, cy; y trails into circle surrounding with black to turquoise gradient)"
+    },
+    unity: {
+        name: "Unity",
+        icon: unity,
+        iconAlt: "Unity Logo (3D Cube with missing inside resembling a hyper cube, one black side, dark grey side and a light grey side on top)"
+    },
+    csharp: {
+        name: "C#",
+        icon: csharp,
+        iconAlt: "C# Logo (Hexagon with purple background and white letters, C#)"
+    },
+    opentowork: {
+        name: "Open To Work",
+    },
+}
 
 export const projects:CardType[] =  [
     {
         title: "Spice",
         technologyTags: [
-            "Gradle", "Java"
+            technologies.gradle, technologies.java
         ],
         link: "https://github.com/tedyeates/spice",
         linkText: "Github",
@@ -34,7 +132,7 @@ export const projects:CardType[] =  [
     {
         title: "Text Forensics",
         technologyTags: [
-            "React", "D3", "JavaScript", "Python"
+            technologies.react, technologies.d3, technologies.javascript, technologies.python
         ],
         image: nodeGraph,
         imageAlt: `
@@ -56,7 +154,7 @@ export const projects:CardType[] =  [
     {
         title: "Inventory System",
         technologyTags: [
-            "Docker", "AWS", "DynamoDB", "Postgresql", "React", "Typescript", "Django", "Cypress"
+            technologies.docker, technologies.aws, technologies.dynamodb, technologies.postgres, technologies.react, technologies.typescript, technologies.django, technologies.cypress
         ],
         image: inventoryManagement,
         imageAlt: `
@@ -74,7 +172,7 @@ export const projects:CardType[] =  [
     {
         title: "Camel Carry",
         technologyTags: [
-            "Unity", "C#",
+            technologies.unity, technologies.csharp
         ],
         link: "https://eglekat.github.io/Camel-Carry",
         linkText: "Github",
@@ -98,7 +196,7 @@ export const projects:CardType[] =  [
     {
         title: "Ghost Game",
         technologyTags: [
-            "Unity", "C#",
+            technologies.unity, technologies.csharp
         ],
         link: "https://github.com/rookwood101/ghost-game",
         linkText: "Github",
@@ -127,11 +225,10 @@ export const pages:HandCardsType =  {
     "About": {
         title: "About",
         image: me,
-        technologyTags: ["Open to Work"],
+        imageAlt: "Ted smiling with a black t-shirt and cap, back dropped by a palm tree and dark green grass",
+        technologyTags: [technologies.opentowork],
         summary: `
             Software engineer with a passion for Cyber Security, Web Dev and Open Source.
-            <hr>
-            <strong>Click me for more information or draw a card from the deck above!</strong><br>
         `,
         description: `
             I have a passion for <i>Cyber Security, Web Dev and Open Source</i>.
@@ -139,23 +236,39 @@ export const pages:HandCardsType =  {
             languages, such as <i>Thai</i>; or anything in between. 
             I also have experience working in the Software Development and Cyber Security 
             industry at Atheneum and BT Security.
-            <hr>
-            <strong>Hobbies</strong>: <i>climbing</i>, <i>cooking</i>, <i>web hacking</i>
-            and <i>board games</i>.
-            Right now, I am playing 
-            <i>Divinity: Original Sin 2 and Minecraft</i>.
         `
     },
     "Contact Me": {
         title: "Contact Me",
         image: teddyLogo,
+        imageAlt: "Pixel art teddy face with white outline",
         summary: `Connect with me on LinkedIn or Github`,
         description: `
             If you are recruiting, 
             looking to collaborate on a project or just want to talk technology, 
             you can contact me or view my current projects at the following links
+            <br/>
+            <br/>
             <hr>
         `,
         hasContactIcons: true
+    },
+    "Interests": {
+        title: "Interests",
+        image: meClimbing,
+        imageAlt: "Ted climbing a difficult bouldering route with Shiba Inu cartoon chalk bag",
+        summary: `
+            I am interested in climbing, martial arts, games (computer and board) as
+            well as web hacking and physical security
+        `,
+        description: `
+            I have been climbing since I was young and begun trad climbing in Uni; I have
+            seconded and lead climbed in Pembrokeshire and Dartmoor. I am also a brown belt
+            in Judo, orange in Kung Fu and yellow in Ju Jitsu.
+            I enjoy ethical web hacking and lock picking.
+            I also like playing strategy board games like Terraforming Mars and also 
+            play computer games; right now, I am playing 
+            <i>Divinity: Original Sin 2 and modded Minecraft</i>.
+        `
     },
 }
