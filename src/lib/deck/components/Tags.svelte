@@ -3,10 +3,18 @@
 
     export let technologies: TechnologyTagType[]
     export let hasExpanded: boolean = false
+
+    $: console.log(technologies)
+    let displayTechnologies = [...technologies]
+
+    $: if (!hasExpanded) {
+        displayTechnologies = technologies.slice(0, 3)
+        console.log(displayTechnologies)
+    }
 </script>
 
 <div class:card-expanded={hasExpanded} class="tags">
-{#each technologies as technology}
+{#each displayTechnologies as technology}
     <div class="tag">
         {#if "icon" in technology}
         <img src={technology.icon} alt={technology.iconAlt}/>
@@ -16,6 +24,11 @@
         {/if}
     </div>
 {/each}
+{#if technologies.length > 3 && !hasExpanded}
+    <div class="tag">
+        ...
+    </div>
+{/if}
 </div> 
 
 <style lang="sass">
@@ -40,18 +53,19 @@
     .tags
         flex-wrap: wrap
         gap: .1rem
-        margin: .3rem 0
+        margin: .1rem 0
 
         &.card-expanded
-            gap: .4rem
+            gap: .1rem
 
             .tag
-                height: 2rem
+                height: 3vh
+
 
     div
         display: flex
         gap: .1rem
-        font-size: .8rem
+        font-size: .7rem
         
         &.card-expanded
             font-size: cards.$expanded-font-size

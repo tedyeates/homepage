@@ -4,7 +4,15 @@
 	import GithubIcon from '$lib/GithubIcon.svelte';
 	import LinkedinIcon from '$lib/LinkedinIcon.svelte';
     import ContactIconLink from '$lib/ContactIconLink.svelte';
+	import { getIconSize } from './deck/util/icons';
+
+    let innerWidth = 0
+    let innerHeight = 0
+    $: iconSize = getIconSize(innerWidth, innerHeight, 2)
+
 </script>
+
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <header>
     <div class="corner" aria-current={$page.url.pathname === '/' ? 'page' : undefined}>
@@ -16,20 +24,16 @@
 
     <div class="corner">
         <ContactIconLink 
-            size={2}
             link="https://github.com/tedyeates" 
             let:color
-            let:size
         >
-            <GithubIcon {size} {color} />
+            <GithubIcon width={iconSize.width} height={iconSize.height} {color} />
         </ContactIconLink>
         <ContactIconLink 
-            size={2}
             link="https://www.linkedin.com/in/ted-yeates-11b14814a/" 
             let:color
-            let:size
         >
-            <LinkedinIcon {size} {color} />
+            <LinkedinIcon width={iconSize.width} height={iconSize.height} {color} />
         </ContactIconLink>
     </div>
 </header>
@@ -42,8 +46,6 @@
 
     .corner
         display: flex
-        justify-content: space-between
-        gap: .5rem
         padding: .5rem
 
         a 

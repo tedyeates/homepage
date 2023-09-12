@@ -5,10 +5,9 @@
 
     export let cards: CardType[]
     export let expandCardIndex: number
+    export let hideCards: () => void
 
     let cardHoverIndex: number | null = null
-    
-    const TOP_INITIAL = 50
 
     $: getRotation = (angle: number, index: number) => {
         if (expandCardIndex === index) {
@@ -36,14 +35,6 @@
         cardHoverIndex = null
     }
 
-    $: getTop = (index:number) => {
-        if (expandCardIndex === index) {
-            return -5
-        }
-
-        return TOP_INITIAL
-    }
-
     const dispatch = createEventDispatcher<ExpandEventType>()
 
     const onClickCard = (index:number, event: MouseEvent) => {
@@ -64,17 +55,21 @@
             on:blur={() => onBlur()} 
             on:click|stopPropagation
             class="card"
-            style="--rotation:{`${getRotation(50,index)}deg`};}; top:{getTop(index)}%;"
+            class:expanded={expandCardIndex === index}
+            class:has-expanded={expandCardIndex > -1}
+            style="--rotation:{`${getRotation(50,index)}deg`};}"
         >
         {#if expandCardIndex === index}
             <Card 
                 {card}
+                {hideCards}
                 hasExpanded
                 on:click={(event) => onClickCard(index, event)}
             />
         {:else if expandCardIndex === -1}
             <Card
                 {card}
+                {hideCards}
                 on:click={(event) => onClickCard(index, event)}
             />
         {/if}
@@ -84,20 +79,36 @@
 
 <style lang="sass">
     @use '../../styles/cards'
-    
+
     .hand
-        position: relative
-        height: cards.$height
-        width: cards.$width 
+        height: 100%
+        width: 100%
+        display: flex
+        align-items: center
 
         .card
-            all: unset
-            border: 0
-            position: absolute
-            box-shadow: 0 0 30px transparentize(black, 0.8)
-
+            @extend %remove-button-styling
+            @extend %card-shape
             transition: transform cards.$transition-speed ease-out
-            transform: translate(-50%, -50%) rotate(var(--rotation))
-            transform-origin: center 120%
+            transform: translate(-50%, 0) rotate(var(--rotation))
+            transform-origin: center 140%
+            height: 42vh
+            aspect-ratio: 1/1.5
             left: 50%
+            top: 50%
+
+            &.expanded
+                position: absolute
+                top: unset
+                z-index: 1
+                width: 100%
+                height: 100%
+
+                @media only screen and (min-width: 768px)
+                    height: 95vh
+                    width: unset
+
+            &.has-expanded
+                box-shadow: none
+
 </style>

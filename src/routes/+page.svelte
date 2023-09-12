@@ -54,13 +54,13 @@
 
 <article class:card-expanded={expandCardIndex > -1}>
     <section>
-        <Deck 
+        <Deck
+            {hideCards}
             on:click={drawCard}
             cards={cardsInDeck}
         />
-    </section>
-    <section>
         <Hand 
+            {hideCards}
             cards={cardsInHand}
             {expandCardIndex}
             on:expand={handleExpand}
@@ -74,10 +74,14 @@
         display: flex
         align-items: center
         justify-content: center
-        height: 50%
+        height: 100%
+        width: 100%
+        top: 0
+        position: absolute
 
     article
         height: 100%
+        position: relative
 
     .card-expanded
         cursor: pointer

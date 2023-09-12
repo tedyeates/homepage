@@ -2,9 +2,8 @@
     import colorPalette from '$lib/constants/colour-palette';
 
     export let invertColors: boolean = false
-    export let link: string
+    export let link: string | undefined = undefined
     export let label: string | undefined = undefined
-    export let size: number
     export let hasExpanded: boolean = false
 
     let isHovering: boolean = false
@@ -39,12 +38,12 @@
     on:focus={onHover}
     on:mouseout={onHoverOut}
     on:blur={onHoverOut}
-    href={link}
+    href={link ?? undefined}
     target="_blank"
     aria-label={label ?? "Contact Link"}
-    style="--size:{size}; --color:{getColor()};"
+    style="--color:{getColor()};"
 >
-    <slot id={label} color={getColor()} {size} />
+    <slot id={label} color={getColor()} />
     {#if label}
     <label 
         for={label} 
@@ -62,9 +61,8 @@
 
     a
         display: inline-flex
-        height: var(--size)
+        height: 100%
         align-items: center
-        width: fit-content
 
     label
         color: var(--color)

@@ -3,6 +3,7 @@
 	import Card from './Card.svelte'
 
     export let cards: CardType[]
+    export let hideCards: () => void
 </script>
 
 <div class="deck">
@@ -11,7 +12,8 @@
             <Card
                 card={card} 
                 isInFront={index === cards.length - 1} 
-                faceDown 
+                faceDown
+                {hideCards}
                 on:click 
             />
         </div>
@@ -19,24 +21,27 @@
 </div>
 
 <style lang="sass">
-    @use '../../styles/cards'
     @use '../../styles/colours'
+    @use '../../styles/cards'
 
-    .deck
-        position: relative
-        display: flex
-        height: cards.$height + 5rem + cards.$border-size * 2
-        width: cards.$width + 1rem + cards.$border-size * 2
+    $card-seperation: 3px
+    $card-height: 42vh
 
-        @for $i from 1 through cards.$deck-size
+    @mixin deck-seperation($i, $card-seperation)
+        top: $i * $card-seperation
+        right: calc(#{$i} * #{$card-seperation})
+
+    .deck 
+        @extend %card-storage
+
+        @for $i from 1 through 10
             :nth-child(#{$i}) 
-                top: $i * 0.270rem
-                right: $i * 0.125rem
+                @include deck-seperation($i, $card-seperation)
+                transform: translate(50%, 0)
 
-        .card
-            position: absolute
-            box-shadow: 0 0 30px transparentize(black, 0.8)
-            
+
+    .card
+        @extend %card-shape
 </style>
 
 

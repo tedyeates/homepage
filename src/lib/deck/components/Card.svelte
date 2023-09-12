@@ -4,11 +4,14 @@
 	import LinkedinIcon from '$lib/LinkedinIcon.svelte';
     import cardImage from '$lib/images/card/BearCardScaled.png'
 	import type { CardType } from '../types';
+	import { getIconSize } from '../util/icons';
 	import Tags from './Tags.svelte';
+    import Icon from '@iconify/svelte';
 
     export let faceDown:boolean = false
     export let isInFront:boolean = true
     export let card:CardType
+    export let hideCards: () => void
 
     export let hasExpanded:boolean = false
     
@@ -17,11 +20,17 @@
     if (faceDown) ariaLabel = "Project Card Back"
 
     let invertColors = true
+
+    let innerWidth = 0
+    let innerHeight = 0
+    $: iconSize = getIconSize(innerWidth, innerHeight, 5)
+
 </script>
+
+<svelte:window bind:innerWidth bind:innerHeight />
 
 <div 
     class="outline" 
-    class:card-expanded-size={hasExpanded}
 >
     <svelte:element
         this={isInFront ? "button" : "div"} 
@@ -38,6 +47,7 @@
     >
     {#if faceDown}
         <img 
+            class="back-image"
             src={cardImage} 
             alt="Pixel art teddy bear sits behind a grassy overlay. A cherry blossom tree reaches over him against a sky blue backdrop" 
         />
@@ -61,57 +71,75 @@
                 </div>
                 {/if}
             </div>
-            <p>{@html hasExpanded ? card.description : card.summary}</p>
+            <p class:has-expanded={hasExpanded}>
+                {@html hasExpanded ? card.description : card.summary}
+            </p>
             {#if card.hasContactIcons}
                 {#if hasExpanded}
-                <div class="contact-icons">
+                <div class="contact-icons has-expanded">
                     <ContactIconLink 
                         invertColors
-                        size={4}
                         link="https://github.com/tedyeates" 
                         label="LinkedIn"
                         hasExpanded
                         let:color
-                        let:size
                     >
-                        <LinkedinIcon {size} {color} />
+                        <LinkedinIcon width={iconSize.width} height={iconSize.height} {color} />
                     </ContactIconLink>
-                    <br>
-                    <br>
                     <ContactIconLink 
                         invertColors
-                        size={4}
                         link="https://github.com/tedyeates" 
                         label="GitHub"
                         hasExpanded
                         let:color
-                        let:size
                     >
-                        <GithubIcon {size} {color} />
+                        <GithubIcon width={iconSize.width} height={iconSize.height}  {color} />
                     </ContactIconLink>
                 </div>
                 {:else}
                 <div class="contact-icons">
                     <ContactIconLink 
                         {invertColors}
-                        size={2}
                         link="https://www.linkedin.com/in/ted-yeates-11b14814a/" 
                         let:color
-                        let:size
+
                     >
-                        <LinkedinIcon {size} {color} />
+                        <LinkedinIcon 
+                            width={iconSize.width/2} 
+                            height={iconSize.height/2}  
+                            {color} 
+                        />
                     </ContactIconLink>
                     <ContactIconLink 
                         {invertColors}
-                        size={2}
                         link="https://github.com/tedyeates" 
                         let:color
-                        let:size
                     >
-                        <GithubIcon {size} {color} />
+                        <GithubIcon 
+                            width={iconSize.width/2} 
+                            height={iconSize.height/2}  
+                            {color} 
+                        />
                     </ContactIconLink>
                 </div>
                 {/if}
+            {/if}
+            {#if hasExpanded}
+            <button 
+                class="close"
+                on:click={hideCards}
+            >
+                <ContactIconLink
+                    invertColors
+                    let:color
+                >
+                    <Icon 
+                        icon="icon-park-solid:down-c" 
+                        height={40}
+                        {color}
+                    />
+                </ContactIconLink>
+            </button>
             {/if}
         </section>
     {/if}
@@ -119,16 +147,147 @@
 </div>
 
 <style lang="sass">
-    @use '../../styles/cards'
     @use '../../styles/colours'
+    @use '../../styles/cards'
+    @use '../../styles/fonts'
+    @use "sass:math"
+
+    $border-radius: 5px
+    $border-size: 6px
+
+    %card-size
+        border-radius: $border-radius
+        height: 100%
+        width: 100%
+
+    .close
+        @extend %remove-button-styling
+        margin-top: auto
+
+
+        &::hover
+            animation-name: floating
+            animation-duration: 3s
+            animation-iteration-count: infinite
+            animation-timing-function: ease-in-out
+            margin-left: 30px
+            margin-top: 5px
+
+    @keyframes floating
+        0% 
+            transform: translate(0,  0px)
+        50%  
+            transform: translate(0, 15px)
+        100%  
+            transform: translate(0, -0px)   
+
+
+    .outline
+        background-color: colours.$border
+        border: $border-size solid colours.$border
+        border-radius: $border-radius
+        height: calc(100% - #{$border-size * 2})
+        width: calc(100% - #{$border-size * 2})
+
+    .background
+        @extend %remove-button-styling
+        display: flex
+        background-color: colours.$images
+        justify-content: center
+        @extend %card-size
+
+        transition: background-color cards.$transition-speed ease-out, color cards.$transition-speed ease-out
+
+        .back-image
+            @extend %card-size
+
+        &.in-front:hover
+            background-color: colours.$highlight
+            color: colours.$border
+            cursor: pointer
+
+        &.face-down
+            background-color: colours.$card-background
+
+            &.in-front:hover
+                background-color: colours.$card-highlight
+
+    .card-content
+        display: flex
+        flex-direction: column
+        padding: math.div(cards.$padding, 2) cards.$padding
+        height: 100%
+        width: calc(100% - #{cards.$padding})
+
+    h2
+        display: inline
+
+    p.has-expanded
+        font-size: fonts.$font-size * 1.5
+        text-align: left
+
+    .card-content-header 
+        display: flex
+        flex-direction: column
+        justify-content: center
+        
+        .title 
+            padding: 5px
+            text-align: center
+            color: colours.$text
+            background: colours.$detail
+            border-radius: $border-radius
+
+        a
+            font-size: fonts.$font-size
+            @extend %card-link
+
+    .image-background
+        display: flex
+        justify-content: center
+        align-items: center
+        background-color: colours.$detail
+        border: colours.$detail solid colours.$border
+        border-radius: $border-radius
+
+        $image-back-size: calc(100% - #{$border-size} * 2)
+        width:  $image-back-size
+        aspect-ratio: 1
+        margin: 0 auto
+
+        img
+            border-radius: $border-radius
+            height: $image-back-size
+            width: $image-back-size
+
 
     .contact-icons
         padding-top: .4rem
+        display: flex
+        gap: 3vw
+        width: 60%
+
+        &.has-expanded
+            flex-direction: column
+            gap: 1vh
+            width: 80%
+
+        @media only screen and (min-width: 768px)
+            justify-content: center
+            gap: 2vw
+            width: 70%
+
+            &.has-expanded
+                flex-direction: row
+                margin: 0 auto
+                gap: 2vw
+                width: 80%
+
 
     span
         color: colours.$text
         background-color: colours.$detail
-        border-radius: cards.$border-radius * 2
+        border-radius: $border-radius * 2
         padding: .1rem .5rem
 
     .separator

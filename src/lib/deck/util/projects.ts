@@ -154,7 +154,7 @@ export const projects:CardType[] =  [
     {
         title: "Inventory System",
         technologyTags: [
-            technologies.docker, technologies.aws, technologies.dynamodb, technologies.postgres, technologies.react, technologies.typescript, technologies.django, technologies.cypress
+            technologies.docker, technologies.react, technologies.typescript, technologies.aws, technologies.dynamodb, technologies.postgres, technologies.typescript, technologies.django, technologies.cypress
         ],
         image: inventoryManagement,
         imageAlt: `
@@ -247,8 +247,6 @@ export const pages:HandCardsType =  {
             If you are recruiting, 
             looking to collaborate on a project or just want to talk technology, 
             you can contact me or view my current projects at the following links
-            <br/>
-            <br/>
             <hr>
         `,
         hasContactIcons: true
