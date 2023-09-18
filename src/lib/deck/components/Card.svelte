@@ -36,7 +36,9 @@
         this={isInFront ? "button" : "div"} 
         class:in-front={isInFront && !hasExpanded}
         class:face-down={faceDown}
+        class:has-expanded={hasExpanded}
         class="background" 
+        disabled={hasExpanded}
         aria-label={ariaLabel} 
         role={isInFront ? "button" : ""} 
         on:click
@@ -162,7 +164,10 @@
 
     .close
         @extend %remove-button-styling
-        margin-top: auto
+        position: absolute
+        bottom: 0
+        right: 50%
+        transform: translate(50%, 0)
 
 
         &::hover
@@ -211,6 +216,10 @@
 
             &.in-front:hover
                 background-color: colours.$card-highlight
+
+        &.has-expanded
+            cursor: default
+            
 
     .card-content
         display: flex

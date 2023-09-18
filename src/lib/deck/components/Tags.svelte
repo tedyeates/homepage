@@ -61,6 +61,9 @@
             .tag
                 height: 3vh
 
+                @media only screen and (min-width: 768px)
+                    font-size: cards.$expanded-font-size
+
 
     div
         display: flex
@@ -68,7 +71,9 @@
         font-size: .7rem
         
         &.card-expanded
-            font-size: cards.$expanded-font-size
             padding: math.div(cards.$padding, 1.3)
             padding: .1rem .6rem
+
+            @media only screen and (min-width: 768px)
+                font-size: 10rem
 </style>

@@ -4,6 +4,7 @@ import inventoryManagement from "../../images/project/inventory_management_syste
 import nodeGraph from "../../images/project/node_graph_crop.png"
 import camelCarry from "../../images/project/camel_carry.png"
 import ghostGame from "../../images/project/ghost_game.png"
+import openData from "../../images/project/open_data.png"
 
 import teddyLogo from "../../images/project/teddy_logo_highlight.png"
 import me from "../../images/project/me.jpg"
@@ -112,8 +113,8 @@ export const projects:CardType[] =  [
         technologyTags: [
             technologies.gradle, technologies.java
         ],
-        link: "https://github.com/tedyeates/spice",
-        linkText: "Github",
+        link: "https://www.curseforge.com/minecraft/mc-mods/dune-x-spice",
+        linkText: "Curseforge",
         image: spiceImage,
         imageAlt: `
             Minecraft with new status bar shaped as bowls of spice, 
@@ -127,6 +128,26 @@ export const projects:CardType[] =  [
             using inspiration from the desert and cultural themes of Dune as 
             well as it's unique perspective on technology. As with a lot of my
             current projects, it has full Thai language support. 
+        `
+    },
+    {
+        title: "Hou'se My Area",
+        technologyTags: [
+            technologies.javascript, technologies.d3
+        ],
+        link: "https://tedyeates.github.io/OpenData/",
+        linkText: "Github Page",
+        image: openData,
+        imageAlt: `
+            Image of map with house and school nodes, heatmap identifies crime rate
+        `,
+        summary: "Map tool for identifying good areas to purchase property; from transport locations to crime rate",
+        description: `
+            Web page written with D3 and Leaflet to create a map view of the UK with the goal of
+            using multiple datasets to create an prototype for a chosen audience.
+            Zoom in to view bus stops, train stations, schools and pubs aggregate from numerous API sources.
+            We also included real-time crime data using police crime data API and house price to allow users to make
+            a more informed decision about where and what to pay for a property.
         `
     },
     {
