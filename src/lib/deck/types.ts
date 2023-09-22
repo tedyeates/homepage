@@ -24,6 +24,14 @@ export type ExpandEventType = {
     expand: ExpandEventDataType
 }
 
+export type DiscardEventDataType = {
+    cardTitle: string
+}
+
+export type DiscardEventType = {
+    discard: DiscardEventDataType
+}
+
 export type TechnologyTagsType = {
     [key: string]: TechnologyTagType
 }

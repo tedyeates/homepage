@@ -3,10 +3,9 @@ export const getIconSize = (
     innerHeight: number, 
     baseSize: number
 ) => {
-    console.log(innerWidth, innerHeight)
     if (innerWidth > innerHeight) {
-        return {width: baseSize, height: baseSize * 2}
+        return {iconWidth: baseSize, iconHeight: baseSize * 2}
     }
 
-    return {width: baseSize * 4, height: baseSize * 2}
+    return {iconWidth: baseSize * 4, iconHeight: baseSize * 2}
 }

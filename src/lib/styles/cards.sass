@@ -1,14 +1,6 @@
 @use './colours'
 @use "sass:math"
 
-// @function card-height($width)
-//     @return $width * 1.5
-
-// $width: 17.3rem
-// $height: card-height($width)
-
-// $expanded-width: 38rem
-// $expanded-height: card-height($expanded-width)
 $expanded-font-size: 1.4rem
 
 $padding: 2vh
@@ -16,16 +8,19 @@ $card-height: 42vh
 
 $transition-speed: .3s
 
+
 %card-shape
     height: $card-height
     aspect-ratio: 1 / 1.5
     position: absolute
     box-shadow: 0 0 30px transparentize(black, 0.8)
 
+
 %card-storage
     height: 100%
     width: 100%
     position: relative
+
 
 %remove-button-styling
     background: none
@@ -37,121 +32,9 @@ $transition-speed: .3s
     outline: inherit
 
 
-
 %card-link
     color: colours.$text
     font-weight: 700
 
     &:hover
         color: colours.$card-text-highlight
-
-
-// @mixin card-size($width, $height, $font-size, $padding)
-//     height: $height
-//     width: $width
-//     font-size: $font-size
-
-//     .background
-//         height: $height
-//         width: $width
-
-//         img
-//             height: $height
-//             width: $width
-
-//     .card-content
-//         height: $height
-//         width: $width - $padding * 2
-
-//         h2
-//             font-size: $font-size * 1.2
-
-//         .card-content-header .title a
-//             font-size: $font-size * 1.2
-//             @extend %card-link
-
-//     .image-background
-//         $image-back-size: $width - ($padding - .1rem) * 6
-//         width: $image-back-size
-//         height: $image-back-size
-//         margin: 0 auto
-
-//         img
-//             $image-size: $width - $padding * 6
-//             width: $image-size
-//             height: $image-size
-
-// .card-link
-//     @extend %card-link
-
-// .outline.card-expanded-size
-//     .card-content
-//         padding: $padding * 2.2 $padding * 2.8
-//         gap: 2rem
-//     @include card-size($expanded-width, $expanded-height, $expanded-font-size, $padding * 2.8)
-
-
-// .outline
-//     border: $border-size solid colours.$border
-//     background-color: colours.$border
-//     border-radius: $border-radius
-//     @include card-size($width, $height, $font-size, $padding)
-
-// .background
-//     all: unset
-//     display: block
-//     transition: background-color $transition-speed ease-out, color $transition-speed ease-out
-//     border-radius: $border-radius
-//     background-color: colours.$images
-//     cursor: default
-
-//     &.in-front:hover
-//         background-color: colours.$highlight
-//         color: colours.$border
-//         cursor: pointer
-
-//     &.face-down
-//         background-color: colours.$card-background
-
-//         &.in-front:hover
-//             background-color: colours.$card-highlight
-
-//     img
-//         border-radius: $border-radius
-
-
-// .card-content
-//     display: flex
-//     flex-direction: column
-//     padding: math.div($padding, 2) $padding
-
-//     %details
-//         background: colours.$detail
-//         border-radius: $border-radius
-
-//     .card-content-header
-//         display: flex
-//         flex-direction: column
-//         justify-content: center
-
-//         .title
-//             padding: .5rem
-//             text-align: center
-//             color: colours.$text
-
-//             @extend %details
-
-//             a
-//                 color: colours.$text
-
-//         h2
-//             display: inline
-        
-//     .image-background
-//         display: flex
-//         justify-content: center
-//         align-items: center
-//         @extend %details
-
-//         img
-//             border-radius: $border-radius

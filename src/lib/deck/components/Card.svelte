@@ -1,15 +1,16 @@
 <script lang="ts">
-	import ContactIconLink from '$lib/ContactIconLink.svelte';
-	import GithubIcon from '$lib/GithubIcon.svelte';
-	import LinkedinIcon from '$lib/LinkedinIcon.svelte';
     import cardImage from '$lib/images/card/BearCardScaled.png'
-	import type { CardType } from '../types';
+	import { createEventDispatcher } from 'svelte';
+	import type { CardType, DiscardEventType } from '../types';
 	import { getIconSize } from '../util/icons';
 	import Tags from './Tags.svelte';
-    import Icon from '@iconify/svelte';
+	import ContactIcons from './ContactIcons.svelte';
+	import Button from './buttons/Button.svelte';
+    import color from '$lib/constants/colour-palette'
 
     export let faceDown:boolean = false
     export let isInFront:boolean = true
+    export let isInDiscard:boolean = false
     export let card:CardType
     export let hideCards: () => void
 
@@ -24,6 +25,25 @@
     let innerWidth = 0
     let innerHeight = 0
     $: iconSize = getIconSize(innerWidth, innerHeight, 5)
+
+    $: iconWidth = iconSize.iconWidth
+    $: iconHeight = iconSize.iconHeight
+
+    $: if (!hasExpanded) {
+        iconWidth = iconSize.iconWidth / 2
+        iconHeight = iconSize.iconHeight / 2
+    } else {
+        iconWidth = iconSize.iconWidth
+        iconHeight = iconSize.iconHeight
+    }
+
+    const dispatch = createEventDispatcher<DiscardEventType>()
+
+    const onClickDiscard = (event: MouseEvent, cardTitle: string) => {
+        dispatch('discard', {
+            cardTitle
+        })
+    }
 
 </script>
 
@@ -61,6 +81,18 @@
                     {#if card.link}
                         🔗<a target="_blank" href={card.link}>{card.linkText}</a>
                     {/if}
+                    {#if !isInDiscard }
+                    <Button 
+                        on:click={(event) => onClickDiscard(event, card.title)} 
+                        iconClass="icon-park-solid:delete-four"
+                        right="0"
+                        top="0"
+                        height={26}
+                        backgroundColor={color.detail}
+                    >
+                        Discard
+                    </Button>
+                    {/if}
                 </div>
                 {#if card.technologyTags}
                     <Tags technologies={card.technologyTags} {hasExpanded} />
@@ -77,71 +109,24 @@
                 {@html hasExpanded ? card.description : card.summary}
             </p>
             {#if card.hasContactIcons}
-                {#if hasExpanded}
-                <div class="contact-icons has-expanded">
-                    <ContactIconLink 
-                        invertColors
-                        link="https://github.com/tedyeates" 
-                        label="LinkedIn"
-                        hasExpanded
-                        let:color
-                    >
-                        <LinkedinIcon width={iconSize.width} height={iconSize.height} {color} />
-                    </ContactIconLink>
-                    <ContactIconLink 
-                        invertColors
-                        link="https://github.com/tedyeates" 
-                        label="GitHub"
-                        hasExpanded
-                        let:color
-                    >
-                        <GithubIcon width={iconSize.width} height={iconSize.height}  {color} />
-                    </ContactIconLink>
+                <div class="contact-icons" class:has-expanded={hasExpanded}>
+                    <ContactIcons 
+                        {invertColors} 
+                        {iconWidth} 
+                        {iconHeight} 
+                        {hasExpanded}
+                    />
                 </div>
-                {:else}
-                <div class="contact-icons">
-                    <ContactIconLink 
-                        {invertColors}
-                        link="https://www.linkedin.com/in/ted-yeates-11b14814a/" 
-                        let:color
-
-                    >
-                        <LinkedinIcon 
-                            width={iconSize.width/2} 
-                            height={iconSize.height/2}  
-                            {color} 
-                        />
-                    </ContactIconLink>
-                    <ContactIconLink 
-                        {invertColors}
-                        link="https://github.com/tedyeates" 
-                        let:color
-                    >
-                        <GithubIcon 
-                            width={iconSize.width/2} 
-                            height={iconSize.height/2}  
-                            {color} 
-                        />
-                    </ContactIconLink>
-                </div>
-                {/if}
             {/if}
             {#if hasExpanded}
-            <button 
-                class="close"
-                on:click={hideCards}
-            >
-                <ContactIconLink
-                    invertColors
-                    let:color
-                >
-                    <Icon 
-                        icon="icon-park-solid:down-c" 
-                        height={40}
-                        {color}
-                    />
-                </ContactIconLink>
-            </button>
+                <Button 
+                    center
+                    on:click={hideCards} 
+                    iconClass="icon-park-solid:down-c" 
+                    right="50%"
+                    bottom="0"
+                    height={50}
+                />
             {/if}
         </section>
     {/if}
@@ -162,30 +147,6 @@
         height: 100%
         width: 100%
 
-    .close
-        @extend %remove-button-styling
-        position: absolute
-        bottom: 0
-        right: 50%
-        transform: translate(50%, 0)
-
-
-        &::hover
-            animation-name: floating
-            animation-duration: 3s
-            animation-iteration-count: infinite
-            animation-timing-function: ease-in-out
-            margin-left: 30px
-            margin-top: 5px
-
-    @keyframes floating
-        0% 
-            transform: translate(0,  0px)
-        50%  
-            transform: translate(0, 15px)
-        100%  
-            transform: translate(0, -0px)   
-
 
     .outline
         background-color: colours.$border
@@ -193,6 +154,7 @@
         border-radius: $border-radius
         height: calc(100% - #{$border-size * 2})
         width: calc(100% - #{$border-size * 2})
+
 
     .background
         @extend %remove-button-styling

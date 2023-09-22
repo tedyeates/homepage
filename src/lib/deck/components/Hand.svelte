@@ -6,20 +6,25 @@
     export let cards: CardType[]
     export let expandCardIndex: number
     export let hideCards: () => void
-
-    let cardHoverIndex: number | null = null
+    
+    let cardHoverIndex: number = -1
 
     $: getRotation = (angle: number, index: number) => {
-        if (expandCardIndex === index) {
+        if (expandCardIndex === index || cards.length < 2) {
             return 0
         }
 
         let proportionAngle = angle/(cards.length + 1)
-        let rotation = -angle/4 + proportionAngle * index    
-        if (cardHoverIndex === null || index === cardHoverIndex) {
+        let rotation = -angle/4 + proportionAngle * index   
+        
+        /* If a no card highlighted, if this is the card highlighted or
+         * if hovered card was recently discarded: normal rotation
+        */
+        if (cardHoverIndex === -1 || index === cardHoverIndex || cardHoverIndex >= cards.length) {
             return rotation
         } 
 
+        // Move cards away from highlighted card
         if (index < cardHoverIndex) {
             return rotation - proportionAngle * 4
         }
@@ -32,7 +37,7 @@
     }
 
     const onBlur = () => {
-        cardHoverIndex = null
+        cardHoverIndex = -1
     }
 
     const dispatch = createEventDispatcher<ExpandEventType>()
@@ -59,20 +64,16 @@
             class:has-expanded={expandCardIndex > -1}
             style="--rotation:{`${getRotation(50,index)}deg`};}"
         >
-        {#if expandCardIndex === index}
+        {#if expandCardIndex === index || expandCardIndex === -1}
             <Card 
                 {card}
                 {hideCards}
-                hasExpanded
+                hasExpanded={expandCardIndex === index}
                 on:click={(event) => onClickCard(index, event)}
-            />
-        {:else if expandCardIndex === -1}
-            <Card
-                {card}
-                {hideCards}
-                on:click={(event) => onClickCard(index, event)}
+                on:discard
             />
         {/if}
+
         </button>
     {/each}
 </div>

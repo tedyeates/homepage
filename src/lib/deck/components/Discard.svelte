@@ -12,7 +12,7 @@
             <Card
                 card={card} 
                 isInFront={index === cards.length - 1} 
-                faceDown
+                isInDiscard
                 {hideCards}
                 on:click 
             />
@@ -21,8 +21,8 @@
 </div>
 
 <style lang="sass">
-    @use '../../styles/colours'
     @use '../../styles/cards'
+    @use '../../styles/colours'
 
     $card-seperation: 3px
     $card-height: 42vh
@@ -32,11 +32,11 @@
         right: calc(#{$i} * #{$card-seperation})
 
     .deck 
-        @extend %card-storage
 
         @for $i from 1 through 10
             :nth-child(#{$i}) 
                 @include deck-seperation($i, $card-seperation)
+                transform: translate(110%, 0)
 
 
     .card

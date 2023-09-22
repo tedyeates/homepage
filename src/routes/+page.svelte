@@ -1,34 +1,31 @@
 <script lang='ts'>
 	import Deck from "$lib/deck/components/Deck.svelte"
+	import Discard from "$lib/deck/components/Discard.svelte";
 	import Hand from "$lib/deck/components/Hand.svelte"
-	import type { ExpandEventDataType, ExpandEventType } from "$lib/deck/types";
+	import Button from "$lib/deck/components/buttons/Button.svelte";
+	import type { DiscardEventDataType, ExpandEventDataType } from "$lib/deck/types";
+	import { discardCard, drawCard, onLoad, shuffleInDiscard } from "$lib/deck/util/card-handler";
+    import color from '$lib/constants/colour-palette'
 
-    import DeckUtil from "$lib/deck/util/deck"
-    import HandUtil from "$lib/deck/util/hand"
+    let [cardsInDeck, cardsInHand, cardsInDiscard] = onLoad()
 
-    const deck = new DeckUtil()
-    const hand = new HandUtil()
-
-    deck.shuffle()
-    let cardsInDeck = deck.getDeck()
-    let cardsInHand = hand.getHand()
-
-    const reloadCards = () => {
-        cardsInDeck = deck.getDeck()
-        cardsInHand = hand.getHand()
-    }
-
-    const drawCard = () => {
-        const card = deck.drawCard()
-        if (!card) throw new Error("Deck is empty")
-
-        hand.addCard(card)
-        reloadCards()
+    const onDraw = () => {
+        [cardsInDeck, cardsInHand] = drawCard()
     }
 
     let expandCardIndex = -1
+    const onDiscard = (event: CustomEvent<DiscardEventDataType>) => {
+        [cardsInHand, cardsInDiscard] = discardCard(event.detail.cardTitle)
+        expandCardIndex = -1
+    }
+
+
+    const onShuffle = () => {
+        [cardsInDeck, cardsInDiscard] = shuffleInDiscard()
+    }
+
+
     const hideCards = () => {
-        console.log("hiding")
         expandCardIndex = -1
     }
 
@@ -41,8 +38,9 @@
         }
 
         expandCardIndex = eventData.index
-        console.log(expandCardIndex)
     }
+
+
 </script>
 
 <svelte:window on:click={hideCards} />
@@ -54,21 +52,41 @@
 
 <article class:card-expanded={expandCardIndex > -1}>
     <section>
-        <Deck
-            {hideCards}
-            on:click={drawCard}
-            cards={cardsInDeck}
-        />
+        <div>
+            <Deck
+                {hideCards}
+                on:click={onDraw}
+                cards={cardsInDeck}
+            />
+            <Discard
+                {hideCards}
+                cards={cardsInDiscard}
+            />
+            {#if cardsInDiscard.length > 0 && expandCardIndex < 0}
+            <div class="shuffle">
+                <Button 
+                    on:click={onShuffle} 
+                    iconClass="pepicons-pop:arrow-spin"
+                    height={40}
+                    backgroundColor={color.detail}
+                >
+                    Shuffle
+                </Button>
+        </div>
+            {/if}
+        </div>
         <Hand 
             {hideCards}
             cards={cardsInHand}
             {expandCardIndex}
             on:expand={handleExpand}
+            on:discard={onDiscard}
         />
     </section>
 </article>
 
 <style lang="sass">
+    @use '../lib/styles/cards'
         
     section
         display: flex
@@ -82,6 +100,25 @@
     article
         height: 100%
         position: relative
+
+    div
+        @extend %card-storage
+
+    .shuffle
+        top: 3px
+        right: 3px
+        width: auto
+        transform: translate(160%, 0)
+        justify-content: center
+        align-items: center
+        display: flex
+        @extend %card-shape
+        box-shadow: none
+
+
+        button
+            // @extend %remove-button-styling
+            right: 0
 
     .card-expanded
         cursor: pointer

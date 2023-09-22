@@ -1,12 +1,9 @@
-import { projects } from './projects'
+
 import type { CardType } from '../types'
 
 export default class {
     private _deck: CardType[] = []
-
-    constructor() {
-        this._deck = projects
-    }
+    
 
     getDeck() {
         return this._deck
@@ -18,6 +15,16 @@ export default class {
     
     drawCard() {
         return this._deck.pop()
+    }
+
+    emptyDeck() {
+        const cards = [...this._deck]
+        this._deck = []
+        return cards
+    }
+
+    fillDeck(cards: CardType[]) {
+        this._deck = [...this._deck, ...cards]
     }
     
     shuffle() {

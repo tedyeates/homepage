@@ -4,12 +4,10 @@
     export let technologies: TechnologyTagType[]
     export let hasExpanded: boolean = false
 
-    $: console.log(technologies)
     let displayTechnologies = [...technologies]
 
     $: if (!hasExpanded) {
         displayTechnologies = technologies.slice(0, 3)
-        console.log(displayTechnologies)
     }
 </script>
 
