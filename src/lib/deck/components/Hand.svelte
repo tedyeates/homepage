@@ -99,15 +99,7 @@
             top: 50%
 
             &.expanded
-                position: absolute
-                top: unset
-                z-index: 1
-                width: 100%
-                height: 100%
-
-                @media only screen and (min-width: 768px)
-                    height: 95vh
-                    width: unset
+                @extend %expanded-card
 
             &.has-expanded
                 box-shadow: none

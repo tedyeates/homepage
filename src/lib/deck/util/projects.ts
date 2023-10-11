@@ -1,4 +1,4 @@
-import type { CardType, TechnologyTagsType } from "../types";
+import type { CardType } from "../types";
 import spiceImage from "../../images/project/spice_addiction_upscale.png"
 import inventoryManagement from "../../images/project/inventory_management_system.png"
 import nodeGraph from "../../images/project/node_graph_crop.png"
@@ -9,109 +9,14 @@ import openData from "../../images/project/open_data.png"
 import teddyLogo from "../../images/project/teddy_logo_highlight.png"
 import me from "../../images/project/me.jpg"
 import meClimbing from "../../images/project/me_climbing_action.jpeg"
+import { technologies } from "./technologies";
 
-import gradle from "../../images/technology/gradle.svg"
-import java from "../../images/technology/java.svg"
-import d3 from "../../images/technology/d3.svg"
-import javascript from "../../images/technology/javascript.svg"
-import python from "../../images/technology/python.svg"
-import react from "../../images/technology/react.svg"
-import docker from "../../images/technology/docker.svg"
-import aws from "../../images/technology/aws.png"
-import dynamodb from "../../images/technology/dynamodb.svg"
-import postgres from "../../images/technology/postgresql.svg"
-import typescript from "../../images/technology/typescript.svg"
-import django from "../../images/technology/django.svg"
-import cypress from "../../images/technology/cypress.png"
-import unity from "../../images/technology/unity.svg"
-import csharp from "../../images/technology/csharp.svg"
-
-const technologies: TechnologyTagsType = {
-    gradle: {
-        name: "Gradle",
-        icon: gradle,
-        iconAlt: "Gradle Logo (Elephant)"
-    },
-    java: {
-        name: "Java",
-        icon: java,
-        iconAlt: "Java Logo (Coffee Cup)"
-    },
-    react: {
-        name: "React",
-        icon: react,
-        iconAlt: "React Logo (Light blue nucleus surrounded by 3 light blue rings forming a star shape"
-    },
-    d3: {
-        name: "D3",
-        icon: d3,
-        iconAlt: "D3 Logo (Orange Letters, D3)"
-    },
-    javascript: {
-        name: "JavaScript",
-        icon: javascript,
-        iconAlt: "JavaScript Logo (Black letters on yellow background, JS)"
-    },
-    python: {
-        name: "Python",
-        icon: python,
-        iconAlt: "Python Logo (Two pythons entangled, one blue and one yellow)"
-    },
-    docker: {
-        name: "Docker",
-        icon: docker,
-        iconAlt: "Docker Logo (Two pythons entangled, one blue and one yellow)"
-    },
-    aws: {
-        name: "AWS",
-        icon: aws,
-        iconAlt: "AWS Logo (AWS letters with orange smile underneath with arrow on the end)"
-    },
-    dynamodb: {
-        name: "DynamoDB",
-        icon: dynamodb,
-        iconAlt: "DynamoDB Logo (3D blue gradient decagonal box resembling a server)"
-    },
-    postgres: {
-        name: "PostgreSQL",
-        icon: postgres,
-        iconAlt: "PostgreSQL Logo (Blue Elephant head with white and black outline)"
-    },
-    typescript: {
-        name: "TypeScript",
-        icon: typescript,
-        iconAlt: "TypeScript Logo (White letters on blue background, TS)"
-    },
-    django: {
-        name: "Django",
-        icon: django,
-        iconAlt: "Django Logo (White letters on dark green background, dj)"
-    },
-    cypress: {
-        name: "Cypress",
-        icon: cypress,
-        iconAlt: "Cypress Logo (Black letters, cy; y trails into circle surrounding with black to turquoise gradient)"
-    },
-    unity: {
-        name: "Unity",
-        icon: unity,
-        iconAlt: "Unity Logo (3D Cube with missing inside resembling a hyper cube, one black side, dark grey side and a light grey side on top)"
-    },
-    csharp: {
-        name: "C#",
-        icon: csharp,
-        iconAlt: "C# Logo (Hexagon with purple background and white letters, C#)"
-    },
-    opentowork: {
-        name: "Open To Work",
-    },
-}
 
 export const projects:CardType[] =  [
     {
         title: "Spice",
         technologyTags: [
-            technologies.gradle, technologies.java
+            technologies.get('gradle'), technologies.get('java')
         ],
         link: "https://www.curseforge.com/minecraft/mc-mods/dune-x-spice",
         linkText: "Curseforge",
@@ -133,7 +38,7 @@ export const projects:CardType[] =  [
     {
         title: "Hou'se My Area",
         technologyTags: [
-            technologies.javascript, technologies.d3
+            technologies.get('javascript'), technologies.get('d3')
         ],
         link: "https://tedyeates.github.io/OpenData/",
         linkText: "Github Page",
@@ -153,7 +58,7 @@ export const projects:CardType[] =  [
     {
         title: "Text Forensics",
         technologyTags: [
-            technologies.react, technologies.d3, technologies.javascript, technologies.python
+            technologies.get('react'), technologies.get('d3'), technologies.get('javascript'), technologies.get('python')
         ],
         image: nodeGraph,
         imageAlt: `
@@ -175,7 +80,7 @@ export const projects:CardType[] =  [
     {
         title: "Inventory System",
         technologyTags: [
-            technologies.docker, technologies.react, technologies.typescript, technologies.aws, technologies.dynamodb, technologies.postgres, technologies.typescript, technologies.django, technologies.cypress
+            technologies.get('docker'), technologies.get('react'), technologies.get('typescript'), technologies.get('aws'), technologies.get('dynamodb'), technologies.get('postgres'), technologies.get('typescript'), technologies.get('django'), technologies.get('cypress')
         ],
         image: inventoryManagement,
         imageAlt: `
@@ -193,7 +98,7 @@ export const projects:CardType[] =  [
     {
         title: "Camel Carry",
         technologyTags: [
-            technologies.unity, technologies.csharp
+            technologies.get('unity'), technologies.get('csharp')
         ],
         link: "https://eglekat.github.io/Camel-Carry",
         linkText: "Github",
@@ -217,7 +122,7 @@ export const projects:CardType[] =  [
     {
         title: "Ghost Game",
         technologyTags: [
-            technologies.unity, technologies.csharp
+            technologies.get('unity'), technologies.get('csharp')
         ],
         link: "https://github.com/rookwood101/ghost-game",
         linkText: "Github",
@@ -238,16 +143,13 @@ export const projects:CardType[] =  [
     }
 ]
 
-type HandCardsType = {
-    [key: string]: CardType
-}
 
-export const pages:HandCardsType =  {
-    "About": {
+export const pages:Map<string, CardType> =  new Map([
+    ["About", {
         title: "About",
         image: me,
         imageAlt: "Ted smiling with a black t-shirt and cap, back dropped by a palm tree and dark green grass",
-        technologyTags: [technologies.opentowork],
+        technologyTags: [technologies.get('opentowork')],
         summary: `
             Software engineer with a passion for Cyber Security, Web Dev and Open Source.
         `,
@@ -258,8 +160,8 @@ export const pages:HandCardsType =  {
             I also have experience working in the Software Development and Cyber Security 
             industry at Atheneum and BT Security.
         `
-    },
-    "Contact Me": {
+    }],
+    ["Contact Me", {
         title: "Contact Me",
         image: teddyLogo,
         imageAlt: "Pixel art teddy face with white outline",
@@ -271,8 +173,8 @@ export const pages:HandCardsType =  {
             <hr>
         `,
         hasContactIcons: true
-    },
-    "Interests": {
+    }],
+    ["Interests", {
         title: "Interests",
         image: meClimbing,
         imageAlt: "Ted climbing a difficult bouldering route with Shiba Inu cartoon chalk bag",
@@ -289,5 +191,5 @@ export const pages:HandCardsType =  {
             play computer games; right now, I am playing 
             <i>Divinity: Original Sin 2 and modded Minecraft</i>.
         `
-    },
-}
+    }],
+])

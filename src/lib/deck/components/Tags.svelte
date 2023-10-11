@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { TechnologyTagType } from "../types";
 
-    export let technologies: TechnologyTagType[]
+    export let technologies: (TechnologyTagType | undefined)[]
     export let hasExpanded: boolean = false
 
     let displayTechnologies = [...technologies]
@@ -13,6 +13,7 @@
 
 <div class:card-expanded={hasExpanded} class="tags">
 {#each displayTechnologies as technology}
+    {#if technology}
     <div class="tag">
         {#if "icon" in technology}
         <img src={technology.icon} alt={technology.iconAlt}/>
@@ -21,6 +22,7 @@
         <span>{technology.name}</span>
         {/if}
     </div>
+    {/if}
 {/each}
 {#if technologies.length > 3 && !hasExpanded}
     <div class="tag">

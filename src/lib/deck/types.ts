@@ -2,17 +2,13 @@ export type CardType = {
     title: string
     link?: string
     linkText?: string
-    technologyTags?: TechnologyTagType[] 
+    technologyTags?: (TechnologyTagType | undefined)[] 
     summary: string
     description: string
     image?: string
     imageAlt?: string
     faceDown?: boolean
     hasContactIcons?: boolean
-}
-
-export type HandCardsType = {
-    [key: string]: CardType
 }
 
 export type ExpandEventDataType = {
@@ -30,10 +26,6 @@ export type DiscardEventDataType = {
 
 export type DiscardEventType = {
     discard: DiscardEventDataType
-}
-
-export type TechnologyTagsType = {
-    [key: string]: TechnologyTagType
 }
 
 export type TechnologyTagType = {

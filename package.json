@@ -41,6 +41,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"iconify-icon": "^1.0.8"
+		"iconify-icon": "^1.0.8",
+		"svelte-multiselect": "^10.2.0"
 	}
 }

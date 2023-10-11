@@ -12,7 +12,7 @@
             <Card
                 card={card} 
                 isInFront={index === cards.length - 1} 
-                isInDiscard
+                hideDiscardButton
                 {hideCards}
                 on:click 
             />

@@ -10,7 +10,7 @@
 
     export let faceDown:boolean = false
     export let isInFront:boolean = true
-    export let isInDiscard:boolean = false
+    export let hideDiscardButton:boolean = false
     export let card:CardType
     export let hideCards: () => void
 
@@ -81,7 +81,7 @@
                     {#if card.link}
                         🔗<a target="_blank" href={card.link}>{card.linkText}</a>
                     {/if}
-                    {#if !isInDiscard }
+                    {#if !hideDiscardButton }
                     <Button 
                         on:click={(event) => onClickDiscard(event, card.title)} 
                         iconClass="icon-park-solid:delete-four"
@@ -139,19 +139,17 @@
     @use '../../styles/fonts'
     @use "sass:math"
 
-    $border-radius: 5px
     $border-size: 6px
 
     %card-size
-        border-radius: $border-radius
+        border-radius: cards.$border-radius
         height: 100%
         width: 100%
-
 
     .outline
         background-color: colours.$border
         border: $border-size solid colours.$border
-        border-radius: $border-radius
+        border-radius: cards.$border-radius
         height: calc(100% - #{$border-size * 2})
         width: calc(100% - #{$border-size * 2})
 
@@ -207,7 +205,7 @@
             text-align: center
             color: colours.$text
             background: colours.$detail
-            border-radius: $border-radius
+            border-radius: cards.$border-radius
 
         a
             font-size: fonts.$font-size
@@ -219,7 +217,7 @@
         align-items: center
         background-color: colours.$detail
         border: colours.$detail solid colours.$border
-        border-radius: $border-radius
+        border-radius: cards.$border-radius
 
         $image-back-size: calc(100% - #{$border-size} * 2)
         width:  $image-back-size
@@ -227,7 +225,7 @@
         margin: 0 auto
 
         img
-            border-radius: $border-radius
+            border-radius: cards.$border-radius
             height: $image-back-size
             width: $image-back-size
 
@@ -258,7 +256,7 @@
     span
         color: colours.$text
         background-color: colours.$detail
-        border-radius: $border-radius * 2
+        border-radius: cards.$border-radius * 2
         padding: .1rem .5rem
 
     .separator
