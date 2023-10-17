@@ -48,7 +48,7 @@
         
 
     .deck 
-        %card-storage
+        @extend %card-storage
         display: flex
         gap: 4vh 1vw
         margin: 0 4vw

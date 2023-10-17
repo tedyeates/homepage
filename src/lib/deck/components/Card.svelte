@@ -192,7 +192,7 @@
         display: inline
 
     p.has-expanded
-        font-size: fonts.$font-size * 1.5
+        font-size: fonts.$font-size-expanded
         text-align: left
 
     .card-content-header 
