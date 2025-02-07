@@ -13,6 +13,8 @@ import django from "../../images/technology/django.svg"
 import cypress from "../../images/technology/cypress.png"
 import unity from "../../images/technology/unity.svg"
 import csharp from "../../images/technology/csharp.svg"
+import svelte from "../../images/technology/svelte.svg"
+import sass from "../../images/technology/sass.svg"
 import type { TechnologyTagType } from "../types"
 
 
@@ -91,6 +93,16 @@ export const technologies = new Map<string, TechnologyTagType>([
         name: "C#",
         icon: csharp,
         iconAlt: "C# Logo (Hexagon with purple background and white letters, C#)"
+    }],
+    ['svelte', {
+        name: "Svelte",
+        icon: svelte,
+        iconAlt: "Svelte Logo (White letters on red background, S)"
+    }],
+    ['sass', {
+        name: "Sass",
+        icon: sass,
+        iconAlt: "Sass Logo (Pink cursive letters, Sass)"
     }],
     ['opentowork', {
         name: "Open To Work",

@@ -4,6 +4,7 @@ import inventoryManagement from "../../images/project/inventory_management_syste
 import nodeGraph from "../../images/project/node_graph_crop.png"
 import camelCarry from "../../images/project/camel_carry.png"
 import ghostGame from "../../images/project/ghost_game.png"
+import homepage from "../../images/project/homepage.png"
 import openData from "../../images/project/open_data.png"
 
 import teddyLogo from "../../images/project/teddy_logo_highlight.png"
@@ -139,6 +140,27 @@ export const projects:CardType[] =  [
             nervous and using loud noises will scare them. Made with a friend in 
             Unity (C#) with the intention of creating a game including an 
             innovative mechanic.
+        `
+    },
+    {
+        title: "Homepage",
+        technologyTags: [
+            technologies.get('svelte'), technologies.get('sass'), technologies.get('typescript')
+        ],
+        link: "https://tedyeates.fly.dev/",
+        linkText: "Portfolio",
+        image: homepage,
+        imageAlt: `
+            A face down deck of cards, the back features a pixel drawing of a teddy bear sitting in the grass under a cherry blossom tree. 
+            Next to it is a discard pile of face up cards, on top is a card title About with a handsome picture of me smiling with a black t-shirt and cap, 
+            back dropped by a palm tree and dark green grass. You should hire this person (smiley face).
+
+            Beneath is a fanned deck of cards featuring an about card with contact information, 
+            you should click the linkedin link in this card to send me the job information.
+        `,
+        summary: "A game where you scare people using your voice's pitch and volume",
+        description: `
+            This website was built with <i>Svelte</i> and <i>SASS</i>. Icons from iconify, all other art is designed by Ted Yeates.
         `
     }
 ]

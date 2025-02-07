@@ -1,17 +1,22 @@
-# fly.toml app configuration file generated for tedyeates on 2023-08-15T13:27:25+01:00
+# fly.toml app configuration file generated for tedyeates on 2025-02-05T05:52:21Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "tedyeates"
-primary_region = "lhr"
+app = 'tedyeates'
+primary_region = 'lhr'
 
 [build]
 
 [http_service]
   internal_port = 3000
   force_https = true
-  auto_stop_machines = true
+  auto_stop_machines = 'stop'
   auto_start_machines = true
   min_machines_running = 0
-  processes = ["app"]
+  processes = ['app']
+
+[[vm]]
+  memory = '1gb'
+  cpu_kind = 'shared'
+  cpus = 1
