@@ -15,6 +15,7 @@ import unity from "../../images/technology/unity.svg"
 import csharp from "../../images/technology/csharp.svg"
 import svelte from "../../images/technology/svelte.svg"
 import sass from "../../images/technology/sass.svg"
+import prisma from "../../images/technology/prisma.svg"
 import type { TechnologyTagType } from "../types"
 
 
@@ -103,6 +104,11 @@ export const technologies = new Map<string, TechnologyTagType>([
         name: "Sass",
         icon: sass,
         iconAlt: "Sass Logo (Pink cursive letters, Sass)"
+    }],
+    ['prisma', {
+        name: "Prisma",
+        icon: prisma,
+        iconAlt: "Prisma Logo (Purple background with a white pyramid at an angle, one face is purple)"
     }],
     ['opentowork', {
         name: "Open To Work",

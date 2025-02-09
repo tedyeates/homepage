@@ -6,6 +6,7 @@ import camelCarry from "../../images/project/camel_carry.png"
 import ghostGame from "../../images/project/ghost_game.png"
 import homepage from "../../images/project/homepage.png"
 import openData from "../../images/project/open_data.png"
+import filmClub from "../../images/project/film_club.png"
 
 import teddyLogo from "../../images/project/teddy_logo_highlight.png"
 import me from "../../images/project/me.jpg"
@@ -161,6 +162,33 @@ export const projects:CardType[] =  [
         summary: "A game where you scare people using your voice's pitch and volume",
         description: `
             This website was built with <i>Svelte</i> and <i>SASS</i>. Icons from iconify, all other art is designed by Ted Yeates.
+        `
+    },
+    {
+        title: "Film Club",
+        technologyTags: [
+            technologies.get('svelte'), technologies.get('typescript'), technologies.get('postgres'), technologies.get('sass'),
+            technologies.get('prisma'), technologies.get('docker')
+        ],
+        link: "https://github.com/EgleKat/Film-club-discord-bot",
+        linkText: "Github",
+        image: filmClub,
+        imageAlt: `
+            Film website with poster of a movie and description. The poster displays a short table with a microphone on top
+            next to it is a, sitting, naked Japanese man, back dropped with a blurred out crowd. Underneath is the name:
+            THE CONTESTANT.
+            
+            The following description is beside the poster: The incredible true story of a man who lived for 15 months 
+            trapped inside a small room, naked, starving and alone... and completely unaware that his life was being broadcast on 
+            national TV in Japan, to over 15 million viewers a week.
+
+            Underneath is a form to add your score as well as a button for sending scores to Discord and the number of scores currently submitted.
+        `,
+        summary: "An app for selecting films and keeping track of scores for a film club",
+        description: `
+            The website allows films to be selected from TMDB, an online database as well as scoring them and recording the score in Discord.
+            Made in a small team to facilitate our film club. Setup infrastructure and score functionality whilst supporting
+            my friends learning Svelte.
         `
     }
 ]

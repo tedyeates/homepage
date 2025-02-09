@@ -52,6 +52,7 @@
         display: flex
         gap: 4vh 1vw
         margin: 0 4vw
+        width: 90%
         flex-wrap: wrap
         justify-content: center
 
